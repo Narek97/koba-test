@@ -179,12 +179,6 @@ const MultipleSelection = () => {
     }
   };
 
-  const annotationsToDraw = [...annotations, ...newAnnotation];
-
-  console.log({ annotations });
-  console.log({ newAnnotation });
-  console.log({ annotationsToDraw });
-
   return (
     <div>
       <div className={"header"}>
@@ -202,7 +196,7 @@ const MultipleSelection = () => {
         id={"stage"}
       >
         <Layer ref={layerRef}>
-          {annotationsToDraw.map((rect, i) => {
+          {[...annotations, ...newAnnotation].map((rect, i) => {
             return (
               <Rectangle
                 key={i}
