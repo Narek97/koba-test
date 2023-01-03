@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="02c4a0b5-487b-4288-93ac-1a1cb1e5d097" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/components/MultipleSelection/Rectangle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MultipleSelection/Rectangle.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MultipleSelection/multiple-selection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MultipleSelection/multiple-selection.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/page1.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/page1.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/page4.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/page4.tsx" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2J0ceFqveURJLs8qttQ9Cu2uTcX" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/home/beeweb/Desktop/Outerloop/outerloop-frontend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_interpreter_path": "/home/beeweb/.nvm/versions/node/v14.17.0/bin/node",
+    "nodejs_package_manager_path": "npm",
+    "prettierjs.PrettierConfiguration.Package": "/home/beeweb/Desktop/react/react-dragble/node_modules/prettier",
+    "settings.editor.selected.configurable": "settings.nodejs",
+    "ts.external.directory.path": "/home/beeweb/Desktop/react/react-dragble/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="ReactDesignerToolWindowState">
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.haulmont.rcb.reactComponents" value="false" />
+        <entry key="com.haulmont.rcb.reactInspector" value="false" />
+      </map>
+    </option>
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components/MultipleSelection" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="02c4a0b5-487b-4288-93ac-1a1cb1e5d097" name="Changes" comment="" />
+      <created>1671218534445</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1671218534445</updated>
+      <workItem from="1671218535879" duration="4011000" />
+      <workItem from="1671268531281" duration="13163000" />
+      <workItem from="1671287895838" duration="7846000" />
+      <workItem from="1671356564223" duration="2004000" />
+      <workItem from="1671431123352" duration="20000" />
+      <workItem from="1671610938149" duration="279000" />
+      <workItem from="1671806837213" duration="380000" />
+      <workItem from="1671807234772" duration="189000" />
+      <workItem from="1671907571848" duration="20000" />
+      <workItem from="1672034544186" duration="18000" />
+      <workItem from="1672733251183" duration="4733000" />
+      <workItem from="1672738291302" duration="12982000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

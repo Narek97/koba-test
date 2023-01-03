@@ -121,8 +121,6 @@ const Page1 = () => {
     }
   };
 
-  console.log(items);
-
   return (
     <div className={"canvas"}>
       <div className={"header"}>

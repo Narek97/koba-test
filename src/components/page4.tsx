@@ -15,7 +15,7 @@ const Rectangle: FC<IRectangle> = ({
   onChange,
 }) => {
   const shapeRef = useRef<any>();
-
+  console.log(shapeProps, "shapeProps");
   return (
     <Rect
       onClick={() => onSelect(shapeRef)}
@@ -130,7 +130,8 @@ const Page4 = () => {
         width: x - sx,
         height: y - sy,
         key: annotations.length + 1,
-        fill: "green",
+        fill: "red",
+        strokeWidth: 0,
         id: new Date().toLocaleTimeString().toString(),
       };
       annotations.push(annotationToAdd);

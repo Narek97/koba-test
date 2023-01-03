@@ -18,6 +18,7 @@ const Rectangle: FC<IRectangle> = ({ shapeProps, onSelect, onChange }) => {
       // ref={shapeRef.current[getKey]}
       ref={shapeRef}
       {...shapeProps}
+      dash={[10, 10]}
       name="rectangle"
       draggable
       onDragEnd={(e) => {

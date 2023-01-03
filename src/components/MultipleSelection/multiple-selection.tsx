@@ -10,37 +10,14 @@ declare global {
   }
 }
 
-const initialRectangles = [
-  {
-    x: 150,
-    y: 150,
-    width: 80,
-    height: 80,
-    fill: "green",
-    id: "rect2",
-  },
-  {
-    x: 200,
-    y: 200,
-    width: 120,
-    height: 120,
-    fill: "green",
-    id: "rect3",
-  },
-  {
-    x: 300,
-    y: 300,
-    width: 100,
-    height: 100,
-    fill: "green",
-    id: "rect4",
-  },
-];
-
 const MultipleSelection = () => {
-  const [rectangles, setRectangles] = useState(initialRectangles);
+  // const [rectangles, setRectangles] = useState<any[]>([]);
+  const [selectedElement, setSelectedElement] = useState("");
+  const [selectedId, selectShape] = useState<any>(null);
+  const [nodesArray, setNodes] = useState<any>([]);
+  const [annotations, setAnnotations] = useState<any>([]);
+  const [newAnnotation, setNewAnnotation] = useState<any>([]);
 
-  console.log(rectangles, "rectangles");
   // const [selectedId, selectShape] = useState<string>('');
   const trRef = useRef<any>(null);
   const layerRef = useRef<any>(null);
@@ -53,13 +30,13 @@ const MultipleSelection = () => {
     y2: 0,
   });
   const Konva = window.Konva;
-  console.log(Konva, 111);
   const checkDeselect = (e: any) => {
     // deselect when clicked on empty area
     const clickedOnEmpty = e.target === e.target.getStage();
     if (clickedOnEmpty) {
-      // // selectShape(null);
       trRef.current.nodes([]);
+      selectShape(null);
+      setNodes([]);
     }
   };
   const updateSelectionRect = () => {
@@ -151,57 +128,121 @@ const MultipleSelection = () => {
     // layer.draw();
   };
 
-  return (
-    <Stage
-      width={window.innerWidth + 400}
-      height={window.innerHeight + 400}
-      onMouseDown={onMouseDown}
-      onMouseUp={onMouseUp}
-      onMouseMove={onMouseMove}
-      onTouchStart={checkDeselect}
-      onClick={onClickTap}
-    >
-      <Layer ref={layerRef}>
-        {rectangles.map((rect, i) => {
-          return (
-            <Rectangle
-              key={i}
-              shapeProps={rect}
-              onSelect={(e: any) => {
-                if (e.current !== undefined) {
-                  trRef.current.nodes([e.current]);
-                  trRef.current.getLayer().batchDraw();
-                }
-                // selectShape(rect.id);
-              }}
-              onChange={(newAttrs: any) => {
-                setRectangles((prev) =>
-                  prev.map((el, index) => {
-                    if (index === i) {
-                      el = newAttrs;
-                    }
-                    return el;
-                  })
-                );
-              }}
-            />
-          );
-        })}
+  const onAddElement = (type: string) => {
+    setSelectedElement((prev) => (prev === type ? "" : type));
+  };
 
-        <Transformer
-          resizeEnabled={true}
-          rotateEnabled={true}
-          ref={trRef}
-          boundBoxFunc={(oldBox, newBox) => {
-            if (newBox.width < 30 || newBox.height < 30) {
-              return oldBox;
-            }
-            return newBox;
-          }}
-        />
-        <Rect fill="red" ref={selectionRectRef} />
-      </Layer>
-    </Stage>
+  const handleMouseDown = (e: any) => {
+    if (e.target.attrs.id !== "stage") {
+      setSelectedElement("");
+    }
+    const { x, y } = e.target.getStage().getPointerPosition();
+    if (newAnnotation.length === 0 && selectedElement === "rect") {
+      setNewAnnotation([{ x, y, width: 0, height: 0, key: "0" }]);
+    }
+  };
+  const handleMouseMove = (e: any) => {
+    if (newAnnotation.length === 1 && selectedElement === "rect") {
+      const sx = newAnnotation[0].x;
+      const sy = newAnnotation[0].y;
+      const { x, y } = e.target.getStage().getPointerPosition();
+      setNewAnnotation([
+        {
+          x: sx,
+          y: sy,
+          width: x - sx,
+          height: y - sy,
+          key: "0",
+        },
+      ]);
+    }
+  };
+  const handleMouseUp = (e: any) => {
+    checkDeselect(e);
+    if (newAnnotation.length === 1 && selectedElement === "rect") {
+      const sx = newAnnotation[0].x;
+      const sy = newAnnotation[0].y;
+      const { x, y } = e.target.getStage().getPointerPosition();
+      const annotationToAdd = {
+        x: sx,
+        y: sy,
+        width: x - sx,
+        height: y - sy,
+        key: annotations.length + 1,
+        fill: "green",
+        strokeWidth: 0,
+        id: new Date().toLocaleTimeString().toString(),
+      };
+      annotations.push(annotationToAdd);
+      setNewAnnotation([]);
+      setAnnotations(annotations);
+    }
+  };
+
+  const annotationsToDraw = [...annotations, ...newAnnotation];
+
+  console.log({ annotations });
+  console.log({ newAnnotation });
+  console.log({ annotationsToDraw });
+
+  return (
+    <div>
+      <div className={"header"}>
+        <button onClick={() => onAddElement("rect")}>Rectangle</button>
+      </div>
+      <Stage
+        width={window.innerWidth - 100}
+        height={window.innerHeight - 140}
+        onMouseDown={selectedElement ? handleMouseDown : onMouseDown}
+        onMouseUp={selectedElement ? handleMouseUp : onMouseUp}
+        onMouseMove={selectedElement ? handleMouseMove : onMouseMove}
+        onTouchStart={checkDeselect}
+        onClick={onClickTap}
+        className={`board ${selectedElement}`}
+        id={"stage"}
+      >
+        <Layer ref={layerRef}>
+          {annotationsToDraw.map((rect, i) => {
+            return (
+              <Rectangle
+                key={i}
+                shapeProps={{ ...rect, stroke: "black" }}
+                onSelect={(e: any) => {
+                  if (e.current !== undefined) {
+                    trRef.current.nodes([e.current]);
+                    trRef.current.getLayer().batchDraw();
+                  }
+                  // selectShape(rect.id);
+                }}
+                onChange={(newAttrs: any) => {
+                  setAnnotations((prev: any) =>
+                    prev.map((el: any, index: any) => {
+                      if (index === i) {
+                        el = newAttrs;
+                      }
+                      return el;
+                    })
+                  );
+                }}
+              />
+            );
+          })}
+
+          <Transformer
+            resizeEnabled={true}
+            rotateEnabled={true}
+            ref={trRef}
+            boundBoxFunc={(oldBox, newBox) => {
+              if (newBox.width < 30 || newBox.height < 30) {
+                return oldBox;
+              }
+              return newBox;
+            }}
+          />
+          <Rect fill="rgba(0,0,255,0.5)" ref={selectionRectRef} />
+        </Layer>
+      </Stage>
+    </div>
   );
 };
 
