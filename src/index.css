@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.app {
+  padding: 20px;
+}
+
+.board {
+  width: 100%;
+  border: 1px solid;
+  background-image: url("https://www.hoteldonandres.com/wp-content/uploads/2016/10/blackboard.jpg");
+}
+
+.header {
+  height: 80px;
+  border: 1px solid;
+  margin-bottom: 10px;
+}
+
+.draw {
+  cursor: url("/src/assests/paint.svg") 0 20, auto;
+}
+
+.rect {
+  cursor: crosshair;
+}
