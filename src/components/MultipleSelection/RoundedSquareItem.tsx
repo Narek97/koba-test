@@ -1,40 +1,40 @@
 import React, { FC } from "react";
-import StarShape from "./StarShape";
+import RoundedSquare from "./RoundedSquareShape";
 
-interface IStartShapeItem {
+interface IRoundedSquareItem {
   annotations: [];
   newAnnotation: [];
   selectedElement: string;
-  setStar: (data: any) => void;
+  setRoundRect: (data: any) => void;
   trRef: any;
 }
 
-const StartShapeItem: FC<IStartShapeItem> = ({
+const RoundedSquareItem: FC<IRoundedSquareItem> = ({
   annotations,
   newAnnotation,
   selectedElement,
-  setStar,
+  setRoundRect,
   trRef,
 }) => {
   const data =
-    selectedElement === "star"
+    selectedElement === "roundRect"
       ? [...annotations, ...newAnnotation]
       : [...annotations];
 
   return (
     <>
-      {data.map((star: any, i) => {
+      {data.map((rect: any, i) => {
         return (
-          <StarShape
+          <RoundedSquare
             key={i}
             shapeProps={{
-              ...star,
-              fill: star.fill || "transparent",
-              innerRadius: star.width,
-              outerRadius: star.width / 2,
-              rotation: star.width > 0 ? -180 : 0,
-              numPoints: 5,
-              height: 0,
+              x: rect.x,
+              y: rect.y,
+              width: Math.abs(rect.width),
+              height: Math.abs(rect.height),
+              cornerRadius: 10,
+              fill: rect.fill || "transparent",
+              strokeWidth: rect.strokeWidth,
               stroke: "black",
             }}
             onSelect={(e: any) => {
@@ -44,7 +44,7 @@ const StartShapeItem: FC<IStartShapeItem> = ({
               }
             }}
             onChange={(newAttrs: any) => {
-              setStar((prev: any) =>
+              setRoundRect((prev: any) =>
                 prev.map((el: any, index: any) => {
                   if (index === i) {
                     el = newAttrs;
@@ -60,4 +60,4 @@ const StartShapeItem: FC<IStartShapeItem> = ({
   );
 };
 
-export default StartShapeItem;
+export default RoundedSquareItem;

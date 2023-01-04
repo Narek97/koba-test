@@ -1,11 +1,20 @@
 import React, { useRef, useState } from "react";
 
-import { Stage, Layer, Rect, Transformer, Ellipse, Star } from "react-konva";
+import {
+  Stage,
+  Layer,
+  Rect,
+  Transformer,
+  Ellipse,
+  Star,
+  Line,
+} from "react-konva";
 import Konva from "konva";
 import RectangleShapeItem from "./RectangleShapeItem";
 import EllipseShapeItem from "./EllipseShapeItem";
 import TriangleShapeItem from "./TriangleShapeItem";
 import StartShapeItem from "./StartShapeItem";
+import RoundedSquareItem from "./RoundedSquareItem";
 
 declare global {
   interface Window {
@@ -19,10 +28,12 @@ const MultipleSelection = () => {
   const [ellipse, setEllipse] = useState<any>([]);
   const [triangle, setTriangle] = useState<any>([]);
   const [star, setStar] = useState<any>([]);
-
+  const [roundRect, setRoundRect] = useState<any>([]);
+  const [lines, setLines] = useState<any>([]);
   const [newAnnotation, setNewAnnotation] = useState<any>([]);
 
   // const [selectedId, selectShape] = useState<string>('');
+  const isDrawing = useRef(false);
   const trRef = useRef<any>(null);
   const layerRef = useRef<any>(null);
   const selectionRectRef = useRef<any>(null);
@@ -94,6 +105,8 @@ const MultipleSelection = () => {
       ...layerRef.current.find(".rectangle"),
       ...layerRef.current.find(".triangle"),
       ...layerRef.current.find(".star"),
+      ...layerRef.current.find(".roundRect"),
+      ...layerRef.current.find(".paint"),
     ].forEach((elementNode: any) => {
       const elBox = elementNode.getClientRect();
       if (Konva.Util.haveIntersection(selBox, elBox)) {
@@ -146,12 +159,16 @@ const MultipleSelection = () => {
       setSelectedElement("");
     }
     const { x, y } = e.target.getStage().getPointerPosition();
-    if (newAnnotation.length === 0) {
+    if (newAnnotation.length === 0 && selectedElement !== "draw") {
       setNewAnnotation([{ x, y, width: 0, height: 0, key: "0" }]);
+    }
+    if (selectedElement === "draw") {
+      isDrawing.current = true;
+      setLines([...lines, { points: [x, y] }]);
     }
   };
   const handleMouseMove = (e: any) => {
-    if (newAnnotation.length === 1) {
+    if (newAnnotation.length === 1 && selectedElement !== "draw") {
       const sx = newAnnotation[0].x;
       const sy = newAnnotation[0].y;
       const { x, y } = e.target.getStage().getPointerPosition();
@@ -165,9 +182,28 @@ const MultipleSelection = () => {
         },
       ]);
     }
+    if (selectedElement === "draw") {
+      // no drawing - skipping
+      if (!isDrawing.current) {
+        return;
+      }
+      const stage = e.target.getStage();
+      const point = stage.getPointerPosition();
+      let lastLine = lines[lines.length - 1];
+      // add point
+      lastLine.points = lastLine.points.concat([point.x, point.y]);
+
+      // replace last
+      lines.splice(lines.length - 1, 1, lastLine);
+      setLines(lines.concat());
+    }
   };
   const handleMouseUp = (e: any) => {
     checkDeselect(e);
+    if (selectedElement === "draw") {
+      isDrawing.current = false;
+      return;
+    }
     if (newAnnotation.length === 1) {
       const sx = newAnnotation[0].x;
       const sy = newAnnotation[0].y;
@@ -226,16 +262,31 @@ const MultipleSelection = () => {
           y: sy,
           width: x - sx,
           height: y - sy,
+          key: annotations.length + 1,
+          fill: "green",
+          strokeWidth: 0,
+          id: new Date().toLocaleTimeString().toString(),
+        };
+        setStar([...star, annotationToAdd]);
+      }
+
+      if (selectedElement === "roundRect") {
+        const annotationToAdd = {
+          x: sx,
+          y: sy,
+          width: x - sx,
+          height: y - sy,
           numPoints: 5,
           innerRadius: x - sx,
           outerRadius: x - sx / 2,
           rotation: x - sx > 0 ? -180 : 0,
           key: annotations.length + 1,
-          fill: "yellow",
+          fill: "purple",
           strokeWidth: 0,
+          cornerRadius: 10,
           id: new Date().toLocaleTimeString().toString(),
         };
-        setStar([...star, annotationToAdd]);
+        setRoundRect([...roundRect, annotationToAdd]);
       }
     }
   };
@@ -243,6 +294,7 @@ const MultipleSelection = () => {
   return (
     <div>
       <div className={"header"}>
+        <button onClick={() => onAddElement("draw")}>Paint</button>
         <button onClick={() => onAddElement("rect")}>Square</button>
         <button onClick={() => onAddElement("ellipse")}>Ellipse</button>
         <button onClick={() => onAddElement("roundRect")}>Round Square</button>
@@ -261,6 +313,20 @@ const MultipleSelection = () => {
         id={"stage"}
       >
         <Layer ref={layerRef}>
+          {lines.map((line: any, i: any) => (
+            <Line
+              draggable
+              key={i}
+              points={line.points}
+              stroke="#df4b26"
+              strokeWidth={5}
+              tension={0.5}
+              lineCap="round"
+              lineJoin="round"
+              name="paint"
+            />
+          ))}
+
           <RectangleShapeItem
             annotations={annotations}
             newAnnotation={newAnnotation}
@@ -289,7 +355,15 @@ const MultipleSelection = () => {
             annotations={star}
             newAnnotation={newAnnotation}
             selectedElement={selectedElement}
-            setTriangle={setStar}
+            setStar={setStar}
+            trRef={trRef}
+          />
+
+          <RoundedSquareItem
+            annotations={roundRect}
+            newAnnotation={newAnnotation}
+            selectedElement={selectedElement}
+            setRoundRect={setRoundRect}
             trRef={trRef}
           />
 

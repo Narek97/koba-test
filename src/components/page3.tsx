@@ -231,18 +231,18 @@ const Page3 = () => {
         className={`board ${selectedElement}`}
       >
         <Layer>
-          {/*{lines.map((line: any, i: any) => (*/}
-          {/*  <Line*/}
-          {/*    draggable*/}
-          {/*    key={i}*/}
-          {/*    points={line.points}*/}
-          {/*    stroke="#df4b26"*/}
-          {/*    strokeWidth={5}*/}
-          {/*    tension={0.5}*/}
-          {/*    lineCap="round"*/}
-          {/*    lineJoin="round"*/}
-          {/*  />*/}
-          {/*))}*/}
+          {lines.map((line: any, i: any) => (
+            <Line
+              draggable
+              key={i}
+              points={line.points}
+              stroke="#df4b26"
+              strokeWidth={5}
+              tension={0.5}
+              lineCap="round"
+              lineJoin="round"
+            />
+          ))}
 
           {/*{annotationsToDraw.map((rect: any, i: any) => {*/}
           {/*  return (*/}
@@ -278,22 +278,22 @@ const Page3 = () => {
           {/*  );*/}
           {/*})}*/}
 
-          {annotationsToDraw.map((value: any, i: any) => {
-            return (
-              <Rect
-                key={i}
-                x={value.x}
-                y={value.y}
-                width={Math.abs(value.width)}
-                height={Math.abs(value.height)}
-                cornerRadius={10}
-                fill="transparent"
-                stroke="black"
-                strokeWidth={2}
-                dash={[10, 10]}
-              />
-            );
-          })}
+          {/*{annotationsToDraw.map((value: any, i: any) => {*/}
+          {/*  return (*/}
+          {/*    <Rect*/}
+          {/*      key={i}*/}
+          {/*      x={value.x}*/}
+          {/*      y={value.y}*/}
+          {/*      width={Math.abs(value.width)}*/}
+          {/*      height={Math.abs(value.height)}*/}
+          {/*      cornerRadius={10}*/}
+          {/*      fill="transparent"*/}
+          {/*      stroke="black"*/}
+          {/*      strokeWidth={2}*/}
+          {/*      dash={[10, 10]}*/}
+          {/*    />*/}
+          {/*  );*/}
+          {/*})}*/}
 
           {/*{annotationsToDraw.map((value: any, i: any) => {*/}
           {/*  return (*/}
