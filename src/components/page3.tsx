@@ -295,21 +295,21 @@ const Page3 = () => {
           {/*  );*/}
           {/*})}*/}
 
-          {/*{annotationsToDraw.map((value: any, i: any) => {*/}
-          {/*  return (*/}
-          {/*    <Line*/}
-          {/*      key={i}*/}
-          {/*      x={value.x}*/}
-          {/*      y={value.y}*/}
-          {/*      points={[0, 0, value.width / 2, value.height, value.width, 0]}*/}
-          {/*      closed*/}
-          {/*      fill="transparent"*/}
-          {/*      stroke="black"*/}
-          {/*      strokeWidth={2}*/}
-          {/*      dash={[10, 10]}*/}
-          {/*    />*/}
-          {/*  );*/}
-          {/*})}*/}
+          {annotationsToDraw.map((value: any, i: any) => {
+            return (
+              <Line
+                key={i}
+                x={value.x}
+                y={value.y}
+                points={[0, 0, value.width / 2, value.height, value.width, 0]}
+                closed
+                fill="transparent"
+                stroke="black"
+                strokeWidth={2}
+                dash={[10, 10]}
+              />
+            );
+          })}
 
           {/*{annotationsToDraw.map((value: any, i: any) => {*/}
           {/*  return (*/}

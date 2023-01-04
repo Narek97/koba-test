@@ -6,6 +6,7 @@ import RectangleShape from "./RectangleShape";
 import EllipseShape from "./EllipseShape";
 import RectangleShapeItem from "./RectangleShapeItem";
 import EllipseShapeItem from "./EllipseShapeItem";
+import TriangleShapeItem from "./TriangleShapeItem";
 
 declare global {
   interface Window {
@@ -17,6 +18,7 @@ const MultipleSelection = () => {
   const [selectedElement, setSelectedElement] = useState("");
   const [annotations, setAnnotations] = useState<any>([]);
   const [ellipse, setEllipse] = useState<any>([]);
+  const [triangle, setTriangle] = useState<any>([]);
 
   const [newAnnotation, setNewAnnotation] = useState<any>([]);
 
@@ -90,6 +92,7 @@ const MultipleSelection = () => {
     [
       ...layerRef.current.find(".ellipse"),
       ...layerRef.current.find(".rectangle"),
+      ...layerRef.current.find(".triangle"),
     ].forEach((elementNode: any) => {
       const elBox = elementNode.getClientRect();
       if (Konva.Util.haveIntersection(selBox, elBox)) {
@@ -132,6 +135,8 @@ const MultipleSelection = () => {
   };
 
   const onAddElement = (type: string) => {
+    trRef.current.nodes([]);
+    setNewAnnotation([]);
     setSelectedElement((prev) => (prev === type ? "" : type));
   };
 
@@ -197,6 +202,22 @@ const MultipleSelection = () => {
         };
         setEllipse([...ellipse, annotationToAdd]);
       }
+
+      if (selectedElement === "triangle") {
+        const annotationToAdd = {
+          x: sx,
+          y: sy,
+          width: x - sx,
+          height: y - sy,
+          points: [0, 0, x - sx / 2, y - sy, x - sx, 0],
+          closed: true,
+          key: annotations.length + 1,
+          fill: "blue",
+          strokeWidth: 0,
+          id: new Date().toLocaleTimeString().toString(),
+        };
+        setTriangle([...triangle, annotationToAdd]);
+      }
     }
   };
 
@@ -237,6 +258,14 @@ const MultipleSelection = () => {
             trRef={trRef}
           />
 
+          <TriangleShapeItem
+            annotations={triangle}
+            newAnnotation={newAnnotation}
+            selectedElement={selectedElement}
+            setTriangle={setTriangle}
+            trRef={trRef}
+          />
+
           <Transformer
             resizeEnabled={true}
             rotateEnabled={true}
@@ -248,6 +277,7 @@ const MultipleSelection = () => {
               return newBox;
             }}
           />
+
           <Rect fill="rgba(0,0,255,0.5)" ref={selectionRectRef} />
         </Layer>
       </Stage>
