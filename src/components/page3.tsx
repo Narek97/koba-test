@@ -231,36 +231,36 @@ const Page3 = () => {
         className={`board ${selectedElement}`}
       >
         <Layer>
-          {lines.map((line: any, i: any) => (
-            <Line
-              draggable
-              key={i}
-              points={line.points}
-              stroke="#df4b26"
-              strokeWidth={5}
-              tension={0.5}
-              lineCap="round"
-              lineJoin="round"
-            />
-          ))}
+          {/*{lines.map((line: any, i: any) => (*/}
+          {/*  <Line*/}
+          {/*    draggable*/}
+          {/*    key={i}*/}
+          {/*    points={line.points}*/}
+          {/*    stroke="#df4b26"*/}
+          {/*    strokeWidth={5}*/}
+          {/*    tension={0.5}*/}
+          {/*    lineCap="round"*/}
+          {/*    lineJoin="round"*/}
+          {/*  />*/}
+          {/*))}*/}
 
-          {annotationsToDraw.map((rect: any, i: any) => {
-            return (
-              <Rectangle
-                key={i}
-                shapeProps={{ ...rect, stroke: "black" }}
-                isSelected={rect.id === selectedId}
-                onSelect={() => {
-                  selectShape(rect.id);
-                }}
-                onChange={(newAttrs: any) => {
-                  const rects = annotations.slice();
-                  rects[i] = newAttrs;
-                  setAnnotations(rects);
-                }}
-              />
-            );
-          })}
+          {/*{annotationsToDraw.map((rect: any, i: any) => {*/}
+          {/*  return (*/}
+          {/*    <RectangleShape*/}
+          {/*      key={i}*/}
+          {/*      shapeProps={{ ...rect, stroke: "black" }}*/}
+          {/*      isSelected={rect.id === selectedId}*/}
+          {/*      onSelect={() => {*/}
+          {/*        selectShape(rect.id);*/}
+          {/*      }}*/}
+          {/*      onChange={(newAttrs: any) => {*/}
+          {/*        const rects = annotations.slice();*/}
+          {/*        rects[i] = newAttrs;*/}
+          {/*        setAnnotations(rects);*/}
+          {/*      }}*/}
+          {/*    />*/}
+          {/*  );*/}
+          {/*})}*/}
 
           {/*{annotationsToDraw.map((value: any, i: any) => {*/}
           {/*  return (*/}

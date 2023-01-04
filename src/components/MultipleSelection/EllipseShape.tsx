@@ -1,25 +1,29 @@
 import React, { FC, useRef } from "react";
-import { KonvaNodeComponent, Rect } from "react-konva";
+import { Ellipse, KonvaNodeComponent } from "react-konva";
 import Konva from "konva";
 import TRect = Konva.Rect;
 
-interface IRectangle {
+interface IEllipseShape {
   shapeProps: any;
   onSelect: any;
   onChange: any;
 }
 
-const Rectangle: FC<IRectangle> = ({ shapeProps, onSelect, onChange }) => {
+const EllipseShape: FC<IEllipseShape> = ({
+  shapeProps,
+  onSelect,
+  onChange,
+}) => {
   const shapeRef = useRef<KonvaNodeComponent<TRect>>(null);
   return (
-    <Rect
+    <Ellipse
       onClick={() => onSelect(shapeRef)}
       onTap={() => onSelect(shapeRef)}
       // ref={shapeRef.current[getKey]}
       ref={shapeRef}
       {...shapeProps}
       dash={[10, 10]}
-      name="rectangle"
+      name="ellipse"
       draggable
       onDragEnd={(e) => {
         onChange({
@@ -36,7 +40,6 @@ const Rectangle: FC<IRectangle> = ({ shapeProps, onSelect, onChange }) => {
         const node: any = shapeRef.current;
         const scaleX = node.scaleX();
         const scaleY = node.scaleY();
-
         // we will reset it back
         node.scaleX(1);
         node.scaleY(1);
@@ -44,13 +47,15 @@ const Rectangle: FC<IRectangle> = ({ shapeProps, onSelect, onChange }) => {
           ...shapeProps,
           x: node.x(),
           y: node.y(),
+          radiusX: Math.abs(node.radiusX()),
+          radiusY: Math.abs(node.radiusY()),
           // set minimal value
-          width: Math.max(5, node.width() * scaleX),
-          height: Math.max(node.height() * scaleY),
+          width: Math.max(node.radiusX() * scaleX),
+          height: Math.max(node.radiusY() * scaleY),
         });
       }}
     />
   );
 };
 
-export default Rectangle;
+export default EllipseShape;

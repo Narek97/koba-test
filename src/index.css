@@ -24,6 +24,6 @@
   cursor: url("/src/assests/paint.svg") 0 20, auto;
 }
 
-.rect {
+.cursor {
   cursor: crosshair;
 }
