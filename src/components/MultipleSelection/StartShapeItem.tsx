@@ -1,36 +1,42 @@
 import React, { FC } from "react";
 import EllipseShape from "./EllipseShape";
+import TriangleShape from "./TriangleShape";
+import StarShape from "./StarShape";
 
-interface IEllipseShapeItem {
+interface IStartShapeItem {
   annotations: [];
   newAnnotation: [];
   selectedElement: string;
-  setEllipse: (data: any) => void;
+  setTriangle: (data: any) => void;
   trRef: any;
 }
 
-const EllipseShapeItem: FC<IEllipseShapeItem> = ({
+const StartShapeItem: FC<IStartShapeItem> = ({
   annotations,
   newAnnotation,
   selectedElement,
-  setEllipse,
+  setTriangle,
   trRef,
 }) => {
   const data =
-    selectedElement === "ellipse"
+    selectedElement === "star"
       ? [...annotations, ...newAnnotation]
       : [...annotations];
 
   return (
     <>
-      {data.map((ellipse: any, i) => {
+      {data.map((star: any, i) => {
         return (
-          <EllipseShape
+          <StarShape
             key={i}
             shapeProps={{
-              ...ellipse,
-              radiusX: Math.abs(ellipse.width),
-              radiusY: Math.abs(ellipse.height),
+              ...star,
+              fill: star.fill || "transparent",
+              innerRadius: star.width,
+              outerRadius: star.width / 2,
+              rotation: star.width > 0 ? -180 : 0,
+              numPoints: 5,
+              height: 0,
               stroke: "black",
             }}
             onSelect={(e: any) => {
@@ -40,7 +46,7 @@ const EllipseShapeItem: FC<IEllipseShapeItem> = ({
               }
             }}
             onChange={(newAttrs: any) => {
-              setEllipse((prev: any) =>
+              setTriangle((prev: any) =>
                 prev.map((el: any, index: any) => {
                   if (index === i) {
                     el = newAttrs;
@@ -56,4 +62,4 @@ const EllipseShapeItem: FC<IEllipseShapeItem> = ({
   );
 };
 
-export default EllipseShapeItem;
+export default StartShapeItem;

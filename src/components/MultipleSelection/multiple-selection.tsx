@@ -1,12 +1,11 @@
 import React, { useRef, useState } from "react";
 
-import { Stage, Layer, Rect, Transformer, Ellipse } from "react-konva";
+import { Stage, Layer, Rect, Transformer, Ellipse, Star } from "react-konva";
 import Konva from "konva";
-import RectangleShape from "./RectangleShape";
-import EllipseShape from "./EllipseShape";
 import RectangleShapeItem from "./RectangleShapeItem";
 import EllipseShapeItem from "./EllipseShapeItem";
 import TriangleShapeItem from "./TriangleShapeItem";
+import StartShapeItem from "./StartShapeItem";
 
 declare global {
   interface Window {
@@ -19,6 +18,7 @@ const MultipleSelection = () => {
   const [annotations, setAnnotations] = useState<any>([]);
   const [ellipse, setEllipse] = useState<any>([]);
   const [triangle, setTriangle] = useState<any>([]);
+  const [star, setStar] = useState<any>([]);
 
   const [newAnnotation, setNewAnnotation] = useState<any>([]);
 
@@ -93,6 +93,7 @@ const MultipleSelection = () => {
       ...layerRef.current.find(".ellipse"),
       ...layerRef.current.find(".rectangle"),
       ...layerRef.current.find(".triangle"),
+      ...layerRef.current.find(".star"),
     ].forEach((elementNode: any) => {
       const elBox = elementNode.getClientRect();
       if (Konva.Util.haveIntersection(selBox, elBox)) {
@@ -218,6 +219,24 @@ const MultipleSelection = () => {
         };
         setTriangle([...triangle, annotationToAdd]);
       }
+
+      if (selectedElement === "star") {
+        const annotationToAdd = {
+          x: sx,
+          y: sy,
+          width: x - sx,
+          height: y - sy,
+          numPoints: 5,
+          innerRadius: x - sx,
+          outerRadius: x - sx / 2,
+          rotation: x - sx > 0 ? -180 : 0,
+          key: annotations.length + 1,
+          fill: "yellow",
+          strokeWidth: 0,
+          id: new Date().toLocaleTimeString().toString(),
+        };
+        setStar([...star, annotationToAdd]);
+      }
     }
   };
 
@@ -263,6 +282,14 @@ const MultipleSelection = () => {
             newAnnotation={newAnnotation}
             selectedElement={selectedElement}
             setTriangle={setTriangle}
+            trRef={trRef}
+          />
+
+          <StartShapeItem
+            annotations={star}
+            newAnnotation={newAnnotation}
+            selectedElement={selectedElement}
+            setTriangle={setStar}
             trRef={trRef}
           />
 

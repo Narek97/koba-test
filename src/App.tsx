@@ -8,7 +8,7 @@ const App = () => {
     <div className={"app"}>
       {/*<Page1 />*/}
       {/*<Page2 />*/}
-      {/*<Page3 />*/}
+      <Page3 />
       {/*<Page4 />*/}
 
       <MultipleSelection />
