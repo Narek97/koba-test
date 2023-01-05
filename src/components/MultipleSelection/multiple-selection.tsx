@@ -1,20 +1,14 @@
 import React, { useRef, useState } from "react";
+import Paint from "../../assests/paint.svg";
 
-import {
-  Stage,
-  Layer,
-  Rect,
-  Transformer,
-  Ellipse,
-  Star,
-  Line,
-} from "react-konva";
+import { Stage, Layer, Rect, Transformer, Line } from "react-konva";
 import Konva from "konva";
 import RectangleShapeItem from "./RectangleShapeItem";
 import EllipseShapeItem from "./EllipseShapeItem";
 import TriangleShapeItem from "./TriangleShapeItem";
 import StartShapeItem from "./StartShapeItem";
 import RoundedSquareItem from "./RoundedSquareItem";
+import URLImage from "./URLImage";
 
 declare global {
   interface Window {
@@ -31,6 +25,8 @@ const MultipleSelection = () => {
   const [roundRect, setRoundRect] = useState<any>([]);
   const [lines, setLines] = useState<any>([]);
   const [newAnnotation, setNewAnnotation] = useState<any>([]);
+  const [images, setImages] = useState<any>([]);
+  const [selectImage, setSelectImage] = useState<any>(null);
 
   // const [selectedId, selectShape] = useState<string>('');
   const isDrawing = useRef(false);
@@ -53,6 +49,7 @@ const MultipleSelection = () => {
     }
   };
   const updateSelectionRect = () => {
+    isDrawing.current = false;
     const node: any = selectionRectRef.current;
     node.setAttrs({
       visible: selection.current.visible,
@@ -75,6 +72,20 @@ const MultipleSelection = () => {
 
     const pos = e.target.getStage().getPointerPosition();
     selection.current.visible = true;
+
+    if (selectImage) {
+      setImages([
+        ...images,
+        {
+          x: pos.x + 12,
+          y: pos.y + 12,
+          src: selectImage,
+          id: new Date().toLocaleTimeString().toString(),
+        },
+      ]);
+      setSelectImage(null);
+    }
+
     selection.current.x1 = pos.x;
     selection.current.y1 = pos.y;
     selection.current.x2 = pos.x;
@@ -107,6 +118,7 @@ const MultipleSelection = () => {
       ...layerRef.current.find(".star"),
       ...layerRef.current.find(".roundRect"),
       ...layerRef.current.find(".paint"),
+      ...layerRef.current.find(".icon"),
     ].forEach((elementNode: any) => {
       const elBox = elementNode.getClientRect();
       if (Konva.Util.haveIntersection(selBox, elBox)) {
@@ -152,6 +164,10 @@ const MultipleSelection = () => {
     trRef.current.nodes([]);
     setNewAnnotation([]);
     setSelectedElement((prev) => (prev === type ? "" : type));
+  };
+
+  const onAddIcon = (e: any) => {
+    setSelectImage(e.target.src);
   };
 
   const handleMouseDown = (e: any) => {
@@ -300,6 +316,16 @@ const MultipleSelection = () => {
         <button onClick={() => onAddElement("roundRect")}>Round Square</button>
         <button onClick={() => onAddElement("triangle")}>Triangle</button>
         <button onClick={() => onAddElement("star")}>Star</button>
+
+        <div>
+          <img
+            alt={"cooling"}
+            src={Paint}
+            width="50"
+            // draggable="true"
+            onClick={onAddIcon}
+          />
+        </div>
       </div>
       <Stage
         width={window.innerWidth - 100}
@@ -310,9 +336,21 @@ const MultipleSelection = () => {
         onTouchStart={checkDeselect}
         onClick={onClickTap}
         className={`board ${selectedElement ? "cursor" : ""}`}
+        style={{ cursor: `url(${selectImage}),auto` }}
         id={"stage"}
       >
         <Layer ref={layerRef}>
+          {images.map((image: any) => {
+            return (
+              <URLImage
+                image={image}
+                key={image.id}
+                onDragEnd={() => {}}
+                id={image.id}
+              />
+            );
+          })}
+
           {lines.map((line: any, i: any) => (
             <Line
               draggable

@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="02c4a0b5-487b-4288-93ac-1a1cb1e5d097" name="Changes" comment="star">
-      <change afterPath="$PROJECT_DIR$/src/components/MultipleSelection/RoundedSquareItem.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/MultipleSelection/RoundedSquareShape.tsx" afterDir="false" />
+    <list default="true" id="02c4a0b5-487b-4288-93ac-1a1cb1e5d097" name="Changes" comment="paint">
+      <change afterPath="$PROJECT_DIR$/src/components/MultipleSelection/URLImage.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MultipleSelection/StartShapeItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MultipleSelection/StartShapeItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/MultipleSelection/multiple-selection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MultipleSelection/multiple-selection.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/page3.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/page3.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +33,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/home/beeweb/Desktop/Empower/empower-frontend",
+    "last_opened_file_path": "/home/beeweb/Desktop/Outerloop/outerloop-frontend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -98,7 +96,11 @@
       <workItem from="1672034544186" duration="18000" />
       <workItem from="1672733251183" duration="4733000" />
       <workItem from="1672738291302" duration="15937000" />
-      <workItem from="1672812855998" duration="19252000" />
+      <workItem from="1672812855998" duration="20438000" />
+      <workItem from="1672841738650" duration="3033000" />
+      <workItem from="1672898775890" duration="1146000" />
+      <workItem from="1672946610096" duration="342000" />
+      <workItem from="1672946966974" duration="3425000" />
     </task>
     <task id="LOCAL-00001" summary="draw rect">
       <created>1672753823762</created>
@@ -135,7 +137,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672833616236</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="paint">
+      <created>1672840590259</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1672840590260</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -146,6 +155,7 @@
     <MESSAGE value="ellipse" />
     <MESSAGE value="triangle" />
     <MESSAGE value="star" />
-    <option name="LAST_COMMIT_MESSAGE" value="star" />
+    <MESSAGE value="paint" />
+    <option name="LAST_COMMIT_MESSAGE" value="paint" />
   </component>
 </project>
