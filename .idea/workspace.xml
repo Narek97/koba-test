@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="02c4a0b5-487b-4288-93ac-1a1cb1e5d097" name="Changes" comment="icons">
-      <change afterPath="$PROJECT_DIR$/src/components/MultipleSelection/CustomArrow.tsx" afterDir="false" />
+    <list default="true" id="02c4a0b5-487b-4288-93ac-1a1cb1e5d097" name="Changes" comment="arrow">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MultipleSelection/CustomArrow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MultipleSelection/CustomArrow.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/MultipleSelection/multiple-selection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MultipleSelection/multiple-selection.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -99,7 +99,7 @@
       <workItem from="1672898775890" duration="1146000" />
       <workItem from="1672946610096" duration="342000" />
       <workItem from="1672946966974" duration="4351000" />
-      <workItem from="1672990952823" duration="2412000" />
+      <workItem from="1672990952823" duration="3109000" />
     </task>
     <task id="LOCAL-00001" summary="draw rect">
       <created>1672753823762</created>
@@ -157,7 +157,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672991248628</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="arrow">
+      <created>1672993914787</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1672993914787</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -170,6 +177,7 @@
     <MESSAGE value="star" />
     <MESSAGE value="paint" />
     <MESSAGE value="icons" />
-    <option name="LAST_COMMIT_MESSAGE" value="icons" />
+    <MESSAGE value="arrow" />
+    <option name="LAST_COMMIT_MESSAGE" value="arrow" />
   </component>
 </project>

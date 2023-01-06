@@ -73,7 +73,7 @@ const MultipleSelection = () => {
   const onMouseDown = (e: any) => {
     const isElement = e.target.findAncestor(".elements-container");
     const isTransformer = e.target.findAncestor("Transformer");
-    if (isElement || isTransformer) {
+    if (isElement || isTransformer || e.target.attrs.name === "arrow") {
       return;
     }
 

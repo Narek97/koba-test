@@ -7,6 +7,9 @@ interface ICustomArrow {
 }
 
 const CustomArrow: FC<ICustomArrow> = ({ startPos, endPos }) => {
+  const onClick = () => {
+    console.log(1);
+  };
   return (
     <Arrow
       points={[startPos.x, startPos.y, endPos.x, endPos.y]}
@@ -17,6 +20,7 @@ const CustomArrow: FC<ICustomArrow> = ({ startPos, endPos }) => {
       stroke="black"
       strokeWidth={4}
       name={"arrow"}
+      onClick={onClick}
     />
   );
 };
