@@ -9,6 +9,7 @@ import TriangleShapeItem from "./TriangleShapeItem";
 import StartShapeItem from "./StartShapeItem";
 import RoundedSquareItem from "./RoundedSquareItem";
 import URLImage from "./URLImage";
+import CustomArrow from "./CustomArrow";
 
 declare global {
   interface Window {
@@ -27,6 +28,12 @@ const MultipleSelection = () => {
   const [newAnnotation, setNewAnnotation] = useState<any>([]);
   const [images, setImages] = useState<any>([]);
   const [selectImage, setSelectImage] = useState<any>(null);
+  const [arrows, setArrows] = useState<any>([]);
+  const [drawArrow, setDrawArrow] = useState<any>({
+    isDrawing: false,
+    arrowStartPos: { x: 0, y: 0 },
+    arrowEndPos: { x: 0, y: 0 },
+  });
 
   // const [selectedId, selectShape] = useState<string>('');
   const isDrawing = useRef(false);
@@ -119,6 +126,7 @@ const MultipleSelection = () => {
       ...layerRef.current.find(".roundRect"),
       ...layerRef.current.find(".paint"),
       ...layerRef.current.find(".icon"),
+      ...layerRef.current.find(".arrow"),
     ].forEach((elementNode: any) => {
       const elBox = elementNode.getClientRect();
       if (Konva.Util.haveIntersection(selBox, elBox)) {
@@ -182,6 +190,13 @@ const MultipleSelection = () => {
       isDrawing.current = true;
       setLines([...lines, { points: [x, y] }]);
     }
+    if (selectedElement === "arrow") {
+      setDrawArrow({
+        isDrawing: true,
+        arrowStartPos: { x, y },
+        arrowEndPos: { x, y },
+      });
+    }
   };
   const handleMouseMove = (e: any) => {
     if (newAnnotation.length === 1 && selectedElement !== "draw") {
@@ -213,12 +228,27 @@ const MultipleSelection = () => {
       lines.splice(lines.length - 1, 1, lastLine);
       setLines(lines.concat());
     }
+    if (selectedElement === "arrow" && drawArrow.isDrawing) {
+      const stage = e.target.getStage();
+      const { x, y } = stage.getPointerPosition();
+      setDrawArrow({ ...drawArrow, arrowEndPos: { x, y } });
+    }
   };
   const handleMouseUp = (e: any) => {
     checkDeselect(e);
     if (selectedElement === "draw") {
       isDrawing.current = false;
       return;
+    }
+    if (selectedElement === "arrow") {
+      setArrows([...arrows, drawArrow]);
+      setDrawArrow({
+        id: new Date().toLocaleTimeString().toString(),
+        isDrawing: false,
+        arrowStartPos: { x: 0, y: 0 },
+        arrowEndPos: { x: 0, y: 0 },
+      });
+      setSelectedElement("");
     }
     if (newAnnotation.length === 1) {
       const sx = newAnnotation[0].x;
@@ -316,6 +346,7 @@ const MultipleSelection = () => {
         <button onClick={() => onAddElement("roundRect")}>Round Square</button>
         <button onClick={() => onAddElement("triangle")}>Triangle</button>
         <button onClick={() => onAddElement("star")}>Star</button>
+        <button onClick={() => onAddElement("arrow")}>Arrow</button>
 
         <div>
           <img
@@ -340,17 +371,6 @@ const MultipleSelection = () => {
         id={"stage"}
       >
         <Layer ref={layerRef}>
-          {images.map((image: any) => {
-            return (
-              <URLImage
-                image={image}
-                key={image.id}
-                onDragEnd={() => {}}
-                id={image.id}
-              />
-            );
-          })}
-
           {lines.map((line: any, i: any) => (
             <Line
               draggable
@@ -404,6 +424,25 @@ const MultipleSelection = () => {
             setRoundRect={setRoundRect}
             trRef={trRef}
           />
+
+          {images.map((image: any) => {
+            return (
+              <URLImage
+                image={image}
+                key={image.id}
+                onDragEnd={() => {}}
+                id={image.id}
+              />
+            );
+          })}
+
+          {[...arrows, drawArrow].map((arrow: any, i: any) => (
+            <CustomArrow
+              key={i}
+              startPos={arrow.arrowStartPos}
+              endPos={arrow.arrowEndPos}
+            />
+          ))}
 
           <Transformer
             resizeEnabled={true}
