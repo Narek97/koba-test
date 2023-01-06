@@ -19,7 +19,6 @@ const TriangleShape: FC<ITriangleShape> = ({
     <Line
       onClick={() => onSelect(shapeRef)}
       onTap={() => onSelect(shapeRef)}
-      // ref={shapeRef.current[getKey]}
       ref={shapeRef}
       {...shapeProps}
       dash={[10, 10]}

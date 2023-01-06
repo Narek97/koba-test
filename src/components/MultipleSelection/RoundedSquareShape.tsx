@@ -28,8 +28,8 @@ const RoundedSquare: FC<IRoundedSquare> = ({
       onDragEnd={(e) => {
         onChange({
           ...shapeProps,
-          // x: e.target.x(),
-          // y: e.target.y(),
+          x: e.target.x(),
+          y: e.target.y(),
         });
       }}
       onTransformEnd={(e) => {

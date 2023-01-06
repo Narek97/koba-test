@@ -10,6 +10,7 @@ import StartShapeItem from "./StartShapeItem";
 import RoundedSquareItem from "./RoundedSquareItem";
 import URLImage from "./URLImage";
 import CustomArrow from "./CustomArrow";
+import CustomArrowItem from "./CustomArrowItem";
 
 declare global {
   interface Window {
@@ -25,15 +26,11 @@ const MultipleSelection = () => {
   const [star, setStar] = useState<any>([]);
   const [roundRect, setRoundRect] = useState<any>([]);
   const [lines, setLines] = useState<any>([]);
-  const [newAnnotation, setNewAnnotation] = useState<any>([]);
   const [images, setImages] = useState<any>([]);
   const [selectImage, setSelectImage] = useState<any>(null);
   const [arrows, setArrows] = useState<any>([]);
-  const [drawArrow, setDrawArrow] = useState<any>({
-    isDrawing: false,
-    arrowStartPos: { x: 0, y: 0 },
-    arrowEndPos: { x: 0, y: 0 },
-  });
+  const [newAnnotation, setNewAnnotation] = useState<any>([]);
+  // const [drawArrow, setDrawArrow] = useState<any>([]);
 
   // const [selectedId, selectShape] = useState<string>('');
   const isDrawing = useRef(false);
@@ -183,7 +180,11 @@ const MultipleSelection = () => {
       setSelectedElement("");
     }
     const { x, y } = e.target.getStage().getPointerPosition();
-    if (newAnnotation.length === 0 && selectedElement !== "draw") {
+    if (
+      newAnnotation.length === 0 &&
+      selectedElement !== "draw" &&
+      selectedElement !== "arrow"
+    ) {
       setNewAnnotation([{ x, y, width: 0, height: 0, key: "0" }]);
     }
     if (selectedElement === "draw") {
@@ -191,15 +192,21 @@ const MultipleSelection = () => {
       setLines([...lines, { points: [x, y] }]);
     }
     if (selectedElement === "arrow") {
-      setDrawArrow({
-        isDrawing: true,
-        arrowStartPos: { x, y },
-        arrowEndPos: { x, y },
-      });
+      setNewAnnotation([
+        {
+          isDrawing: true,
+          arrowStartPos: { x, y },
+          arrowEndPos: { x, y },
+        },
+      ]);
     }
   };
   const handleMouseMove = (e: any) => {
-    if (newAnnotation.length === 1 && selectedElement !== "draw") {
+    if (
+      newAnnotation.length === 1 &&
+      selectedElement !== "draw" &&
+      selectedElement !== "arrow"
+    ) {
       const sx = newAnnotation[0].x;
       const sy = newAnnotation[0].y;
       const { x, y } = e.target.getStage().getPointerPosition();
@@ -213,25 +220,24 @@ const MultipleSelection = () => {
         },
       ]);
     }
+
     if (selectedElement === "draw") {
       // no drawing - skipping
       if (!isDrawing.current) {
         return;
       }
-      const stage = e.target.getStage();
-      const point = stage.getPointerPosition();
+      const { x, y } = e.target.getStage().getPointerPosition();
       let lastLine = lines[lines.length - 1];
       // add point
-      lastLine.points = lastLine.points.concat([point.x, point.y]);
+      lastLine.points = lastLine.points.concat([x, y]);
 
       // replace last
       lines.splice(lines.length - 1, 1, lastLine);
       setLines(lines.concat());
     }
-    if (selectedElement === "arrow" && drawArrow.isDrawing) {
-      const stage = e.target.getStage();
-      const { x, y } = stage.getPointerPosition();
-      setDrawArrow({ ...drawArrow, arrowEndPos: { x, y } });
+    if (selectedElement === "arrow" && newAnnotation[0]?.isDrawing) {
+      const { x, y } = e.target.getStage().getPointerPosition();
+      setNewAnnotation([{ ...newAnnotation[0], arrowEndPos: { x, y } }]);
     }
   };
   const handleMouseUp = (e: any) => {
@@ -240,21 +246,10 @@ const MultipleSelection = () => {
       isDrawing.current = false;
       return;
     }
-    if (selectedElement === "arrow") {
-      setArrows([...arrows, drawArrow]);
-      setDrawArrow({
-        id: new Date().toLocaleTimeString().toString(),
-        isDrawing: false,
-        arrowStartPos: { x: 0, y: 0 },
-        arrowEndPos: { x: 0, y: 0 },
-      });
-      setSelectedElement("");
-    }
     if (newAnnotation.length === 1) {
       const sx = newAnnotation[0].x;
       const sy = newAnnotation[0].y;
       const { x, y } = e.target.getStage().getPointerPosition();
-      setNewAnnotation([]);
 
       if (selectedElement === "rect") {
         const annotationToAdd = {
@@ -334,8 +329,21 @@ const MultipleSelection = () => {
         };
         setRoundRect([...roundRect, annotationToAdd]);
       }
+      if (selectedElement === "arrow") {
+        const annotationToAdd = {
+          id: new Date().toLocaleTimeString().toString(),
+          arrowStartPos: newAnnotation[0].arrowStartPos,
+          arrowEndPos: newAnnotation[0].arrowEndPos,
+        };
+        setArrows([...arrows, annotationToAdd]);
+        setSelectedElement("");
+      }
+
+      setNewAnnotation([]);
     }
   };
+
+  console.log(arrows, 1);
 
   return (
     <div>
@@ -425,24 +433,19 @@ const MultipleSelection = () => {
             trRef={trRef}
           />
 
+          <CustomArrowItem
+            arrows={arrows}
+            newAnnotation={newAnnotation}
+            selectedElement={selectedElement}
+            setArrows={setArrows}
+            trRef={trRef}
+          />
+
           {images.map((image: any) => {
             return (
-              <URLImage
-                image={image}
-                key={image.id}
-                onDragEnd={() => {}}
-                id={image.id}
-              />
+              <URLImage image={image} key={image.id} setImages={setImages} />
             );
           })}
-
-          {[...arrows, drawArrow].map((arrow: any, i: any) => (
-            <CustomArrow
-              key={i}
-              startPos={arrow.arrowStartPos}
-              endPos={arrow.arrowEndPos}
-            />
-          ))}
 
           <Transformer
             resizeEnabled={true}
