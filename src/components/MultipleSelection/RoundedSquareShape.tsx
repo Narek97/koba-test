@@ -14,6 +14,7 @@ const RoundedSquare: FC<IRoundedSquare> = ({
   onSelect,
   onChange,
 }) => {
+  // rotate bug
   const shapeRef = useRef<KonvaNodeComponent<TRect>>(null);
   return (
     <Rect
@@ -33,10 +34,6 @@ const RoundedSquare: FC<IRoundedSquare> = ({
         });
       }}
       onTransformEnd={(e) => {
-        // transformer is changing scale of the node
-        // and NOT its width or height
-        // but in the store we have only width and height
-        // to match the data better we will reset scale on transform end
         const node: any = shapeRef.current;
         const scaleX = node.scaleX();
         const scaleY = node.scaleY();

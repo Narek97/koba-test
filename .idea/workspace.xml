@@ -5,12 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="02c4a0b5-487b-4288-93ac-1a1cb1e5d097" name="Changes" comment="arrow">
-      <change afterPath="$PROJECT_DIR$/src/components/MultipleSelection/CustomArrowItem.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/MultipleSelection/CustomArrow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MultipleSelection/CustomArrow.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MultipleSelection/CustomArrowItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MultipleSelection/CustomArrowItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MultipleSelection/EllipseShape.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MultipleSelection/EllipseShape.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MultipleSelection/RectangleShape.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MultipleSelection/RectangleShape.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/MultipleSelection/RoundedSquareShape.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MultipleSelection/RoundedSquareShape.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MultipleSelection/StartShapeItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MultipleSelection/StartShapeItem.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/MultipleSelection/TriangleShape.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MultipleSelection/TriangleShape.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MultipleSelection/URLImage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MultipleSelection/URLImage.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/MultipleSelection/multiple-selection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MultipleSelection/multiple-selection.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -103,7 +107,7 @@
       <workItem from="1672898775890" duration="1146000" />
       <workItem from="1672946610096" duration="342000" />
       <workItem from="1672946966974" duration="4351000" />
-      <workItem from="1672990952823" duration="22486000" />
+      <workItem from="1672990952823" duration="28855000" />
     </task>
     <task id="LOCAL-00001" summary="draw rect">
       <created>1672753823762</created>
@@ -175,7 +179,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672994338393</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="arrow">
+      <created>1673016663050</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1673016663050</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

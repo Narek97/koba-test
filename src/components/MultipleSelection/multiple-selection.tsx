@@ -123,7 +123,7 @@ const MultipleSelection = () => {
       ...layerRef.current.find(".roundRect"),
       ...layerRef.current.find(".paint"),
       ...layerRef.current.find(".icon"),
-      ...layerRef.current.find(".arrow"),
+      // ...layerRef.current.find(".arrow"),
     ].forEach((elementNode: any) => {
       const elBox = elementNode.getClientRect();
       if (Konva.Util.haveIntersection(selBox, elBox)) {
@@ -438,7 +438,6 @@ const MultipleSelection = () => {
             newAnnotation={newAnnotation}
             selectedElement={selectedElement}
             setArrows={setArrows}
-            trRef={trRef}
           />
 
           {images.map((image: any) => {

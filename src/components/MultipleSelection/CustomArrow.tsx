@@ -3,19 +3,16 @@ import { Arrow, Circle, Line } from "react-konva";
 
 interface ICustomArrow {
   shapeProps: any;
-  onSelect: any;
   onChange: any;
 }
 
-const CustomArrow: FC<ICustomArrow> = ({ shapeProps, onSelect, onChange }) => {
+const CustomArrow: FC<ICustomArrow> = ({ shapeProps, onChange }) => {
   const arrowRef = useRef<any>(null);
   const { arrowStartPos, arrowEndPos } = shapeProps;
 
   return (
     <>
       <Arrow
-        onClick={() => onSelect(arrowRef)}
-        onTap={() => onSelect(arrowRef)}
         ref={arrowRef}
         points={[
           arrowStartPos.x,

@@ -8,7 +8,6 @@ interface ICustomArrowItem {
   newAnnotation: any;
   selectedElement: any;
   setArrows: any;
-  trRef: any;
 }
 
 const CustomArrowItem: FC<ICustomArrowItem> = ({
@@ -16,7 +15,6 @@ const CustomArrowItem: FC<ICustomArrowItem> = ({
   newAnnotation,
   selectedElement,
   setArrows,
-  trRef,
 }) => {
   const data =
     selectedElement === "arrow" ? [...arrows, ...newAnnotation] : [...arrows];
@@ -28,12 +26,6 @@ const CustomArrowItem: FC<ICustomArrowItem> = ({
           <CustomArrow
             key={i}
             shapeProps={arrow}
-            onSelect={(e: any) => {
-              if (e.current !== undefined) {
-                trRef.current.nodes([e.current]);
-                trRef.current.getLayer().batchDraw();
-              }
-            }}
             onChange={(newAttrs: any) => {
               setArrows((prev: any) =>
                 prev.map((el: any, index: any) => {

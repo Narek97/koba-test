@@ -1,4 +1,4 @@
-import React, { FC, useRef } from "react";
+import React, { FC, useRef, useState } from "react";
 import { Ellipse, KonvaNodeComponent } from "react-konva";
 import Konva from "konva";
 import TRect = Konva.Rect;
@@ -14,6 +14,7 @@ const EllipseShape: FC<IEllipseShape> = ({
   onSelect,
   onChange,
 }) => {
+  // rotate bug
   const shapeRef = useRef<KonvaNodeComponent<TRect>>(null);
   return (
     <Ellipse
@@ -33,10 +34,6 @@ const EllipseShape: FC<IEllipseShape> = ({
         });
       }}
       onTransformEnd={(e) => {
-        // transformer is changing scale of the node
-        // and NOT its width or height
-        // but in the store we have only width and height
-        // to match the data better we will reset scale on transform end
         const node: any = shapeRef.current;
         const scaleX = node.scaleX();
         const scaleY = node.scaleY();
