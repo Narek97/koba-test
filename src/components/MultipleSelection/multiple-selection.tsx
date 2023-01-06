@@ -279,7 +279,7 @@ const MultipleSelection = () => {
           width: x - sx,
           height: y - sy,
           key: annotations.length + 1,
-          fill: "green",
+          fill: "yellow",
           strokeWidth: 0,
           id: new Date().toLocaleTimeString().toString(),
         };
@@ -356,9 +356,9 @@ const MultipleSelection = () => {
               draggable
               key={i}
               points={line.points}
-              stroke="#df4b26"
-              strokeWidth={5}
-              tension={0.5}
+              stroke="black"
+              strokeWidth={2}
+              tension={0.2}
               lineCap="round"
               lineJoin="round"
               name="paint"
